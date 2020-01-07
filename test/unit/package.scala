@@ -1,15 +1,5 @@
-import org.scalatest.WordSpec
-import formats.NodeFormats._
-import TestPrettyJsonBuilder._
-import models.Node
-import play.api.libs.json.{Json, Reads}
-
-class TestPrettyJsonBuilder extends WordSpec{
-
-}
-
-private object TestPrettyJsonBuilder {
-  val jsonString: String =
+package object unit {
+  val testJsonValue: String =
     """
       |[ {
       |  "id" : 1,
