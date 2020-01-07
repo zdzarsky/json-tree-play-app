@@ -3,7 +3,6 @@ package unit.domain
 import domain.PrettyJsonBuilder
 import org.scalatest.{GivenWhenThen, WordSpec}
 import play.api.libs.json.{JsValue, Json}
-import unit._
 import _root_.formats.NodeFormats
 import TestPrettyJsonBuilder._
 
@@ -41,27 +40,27 @@ private object TestPrettyJsonBuilder {
 
   val exampleOutput: String =
     """
-      |<li><span></span> <span class="caret"></span>
-      |    <ul class="nested">
-      |          <li>Id: 2</li>
-      |          <li>Name: A</li>
-      |          <li><span> Nodes </span> <span class="caret"></span>
-      |             <ul class="nested">
-      |               <li>Id: 3 </li>
-      |               <li>Name: B</li>
-      |               <ul class="nested">
-      |                 <li></li>
-      |               </ul>
-      |           </ul>
+      |<li>
+      |        <span> </span> <span class="caret"></span>
       |        <ul class="nested">
-      |           <li></li>
-      |         </ul>
+      |          <li>Id:
+      |            2
+      |          </li>
+      |          <li>Name:
+      |            A
+      |          </li><li>
+      |        <span> Nodes</span> <span class="caret"></span>
+      |        <ul class="nested">
+      |          <li>Id:
+      |            3
+      |          </li>
+      |          <li>Name:
+      |            B
+      |          </li><ul></ul>
+      |        </ul><ul></ul>
       |      </li>
-      |        </ul><ul class="nested">
-      |      <li></li>
-      |    </ul>
+      |        </ul><ul></ul>
       |      </li>
-      |
       |""".stripMargin
 }
 
