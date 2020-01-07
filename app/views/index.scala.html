@@ -1,0 +1,13 @@
+@import forms.TextForm
+@import helper._
+
+@import play.api.data.Form
+@import play.api.mvc.RequestHeader
+@(textForm: Form[TextForm])(implicit messages: Messages, request: RequestHeader)
+
+@main("Hello json printer my old friend") {
+    @form(action = helper.CSRF(routes.FormController.handleFormData())) {
+        @textarea(textForm("text"), Symbol("_label") -> "Wprowadź jsona poniżej")
+        <input type="submit" value="Submit">
+    }
+}
