@@ -16,8 +16,10 @@ class FormControllerTest extends PlaySpec with GuiceOneAppPerTest with Injecting
     "be valid on simple node" in {
       Given("valid post with json body")
       val request = FakeRequest(POST, endpoint).withFormUrlEncodedBody("text" -> validJson.toString())
+
       When("sent")
       val result = route(app, request).get
+
       Then("response should contain name and id")
       status(result) mustBe OK
       contentType(result) mustBe Some("text/html")
@@ -28,8 +30,10 @@ class FormControllerTest extends PlaySpec with GuiceOneAppPerTest with Injecting
     "handle rubbish" in {
       Given("request with rubbish")
       val wrongRequest = FakeRequest(POST, endpoint).withFormUrlEncodedBody("text" -> "rubbish")
+
       When("sent")
       val result = route(app, wrongRequest).get
+
       Then("response should contain failure info and reason")
       status(result) mustBe BAD_REQUEST
       contentAsString(result) must include("Invalid Json")
