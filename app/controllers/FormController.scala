@@ -13,23 +13,23 @@ import scala.xml.Elem
 class FormController @Inject()(components: ControllerComponents) extends AbstractController(components) {
   def handleFormData(): Action[AnyContent] = Action { implicit request =>
     Try(validate(TextForm.form.bindFromRequest.get.text)) match {
-      case Failure(exception) =>
-        BadRequest(Html(badRequestMessage(exception).toString))
-      case Success(nodesList) =>
-        Ok(views.html.results(Html(
+      case Failure(exception) => BadRequest(Html(badRequestMessage(exception.getMessage).toString))
+      case Success(nodesList) => nodesList.asOpt match {
+        case Some(nodesList) => Ok(views.html.results(Html(
           <ul class="parent">
-            {PrettyJsonBuilder.build(nodesList.get)}
+            {PrettyJsonBuilder.build(nodesList)}
           </ul>.toString()
         )))
-
+        case None => BadRequest(Html(badRequestMessage("The json is not nodes list json").toString))
+      }
     }
   }
 
-  private def badRequestMessage(exception: Throwable): Elem = {
+  private def badRequestMessage(message: String): Elem = {
     <div>
       <h1>Invalid Json</h1>
       <h2>Reason:
-        {exception.getMessage}
+        {message}
       </h2>
     </div>
   }
